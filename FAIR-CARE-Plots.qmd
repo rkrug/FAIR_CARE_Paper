@@ -1,0 +1,78 @@
+---
+title: "Graphs FAIR CARE Paper"
+author:
+  - name: Rainer M Krug
+    id: rmk
+    orcid: 0000-0002-7490-0066
+    email: Rainer@krugs.de
+    affiliation: 
+      - name: University of Zürich
+        city: Zürich
+        url: www.uzh.ch
+    roles: [author, editor]
+format:
+    html:
+        toc: true
+        toc-depth: 4
+        toc_expand: true
+        embed-resources: true
+        code-fold: true
+        code-summary: 'Show the code'
+
+---
+
+```{r}
+#| label: setup
+
+library(ggplot2)
+library(treemapify)
+```
+
+```{r}
+figure <- read.csv("input/decisions.csv") |>
+  dplyr::select(
+    decision,
+    stage,
+    Total
+  ) |>
+  dplyr::filter(
+    decision != "Total"
+  ) |>
+  dplyr::arrange(
+    decision, stage
+  ) |>
+  ggplot(
+    aes(
+      area = Total,
+      fill = decision,
+      label = stage,
+      subgroup = decision
+    )
+  ) +
+  geom_treemap() +
+  geom_treemap_subgroup_border() +
+  #   geom_treemap_subgroup_text(
+  #     place = "centre",
+  #     grow = T,
+  #     alpha = 1,
+  #     colour = "black",
+  #     fontface = "italic",
+  #     min.size = 0
+  #   ) +
+  geom_treemap_text(
+    colour = "white",
+    place = "bottomleft",
+    reflow = TRUE
+  )
+
+ggplot2::ggsave("figures/FAIR-CARE-Plots.png", figure)
+ggplot2::ggsave("figures/FAIR-CARE-Plots.svg", figure)
+ggplot2::ggsave("figures/FAIR-CARE-Plots.pdf", figure)
+```
+
+![Treemap Decisions by stage](figures/FAIR-CARE-Plots.png)
+
+Download
+- [svg](figures/FAIR-CARE-Plots.svg)
+- [pdf](figures/FAIR-CARE-Plots.pdf)
+- [png](figures/FAIR-CARE-Plots.png)

@@ -1,0 +1,16 @@
+stage,decision,C,A,R,E,Total
+
+Unanimous,Total,17,6,8,12,43
+Unanimous,Synergy,17,6,8,12,43
+Unanimous,Independent,0,0,0,0,0
+Unanimous,Trade-off,0,0,0,0,0
+
+Majority,Total,20,18,20,27,85
+Majority,Synergy,10,15,16,27,68
+Majority,Independent,10,3,4,0,17
+Majority,Trade-off,0,0,0,0,0
+
+Disagreement,Total,8,21,17,6,52
+Disagreement,Synergy,3,5,16,5,29
+Disagreement,Independent,4,14,1,1,20
+Disagreement,Trade-off,1,2,0,0,3
