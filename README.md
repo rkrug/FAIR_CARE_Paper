@@ -1,4 +1,4 @@
 # FAIR_CARE_Paper
 
 
-[treemap](./FAIR-CARE-Plots.html)
+[treemap](https://rkrug.github.io/FAIR_CARE_Paper/FAIR-CARE-Plots.html)
