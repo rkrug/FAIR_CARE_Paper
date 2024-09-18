@@ -31,26 +31,38 @@ library(treemapify)
 ```{r}
 figure <- read.csv("input/decisions.csv") |>
   dplyr::select(
-    decision,
-    stage,
+    Decision,
+    Stage,
     Total
   ) |>
   dplyr::filter(
-    decision != "Total"
+    Decision != "Total"
   ) |>
   dplyr::arrange(
-    decision, stage
+    Decision, Stage
+  ) |>
+  dplyr::mutate(
+    Stage = paste0(Stage, "\n(", Total, ")")
   ) |>
   ggplot(
     aes(
       area = Total,
-      fill = decision,
-      label = stage,
-      subgroup = decision
+      fill = Decision,
+      label = Stage,
+      subgroup = Decision
     )
   ) +
-  geom_treemap() +
-  geom_treemap_subgroup_border() +
+  geom_treemap(
+    layout = "squarified",
+    color = "black",
+    size = 2,
+    radius = grid::unit(10, "pt")
+  ) +
+  scale_fill_manual(
+    values = c("green", "yellow", "red"),
+    breaks = c("Synergy", "Independent", "Trade-off")
+  ) +
+  # geom_treemap_subgroup_border() +
   #   geom_treemap_subgroup_text(
   #     place = "centre",
   #     grow = T,
@@ -60,17 +72,17 @@ figure <- read.csv("input/decisions.csv") |>
   #     min.size = 0
   #   ) +
   geom_treemap_text(
-    colour = "white",
-    place = "bottomleft",
+    colour = "black",
+    place = "centre",
     reflow = TRUE
   )
+
+figure
 
 ggplot2::ggsave("figures/FAIR-CARE-Plots.png", figure)
 ggplot2::ggsave("figures/FAIR-CARE-Plots.svg", figure)
 ggplot2::ggsave("figures/FAIR-CARE-Plots.pdf", figure)
 ```
-
-![Treemap Decisions by stage](figures/FAIR-CARE-Plots.png)
 
 Download
 - [svg](figures/FAIR-CARE-Plots.svg)
